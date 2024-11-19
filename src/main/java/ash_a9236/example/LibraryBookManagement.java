@@ -14,10 +14,31 @@ public class LibraryBookManagement {
         books.addLast(book);
     }
 
+    public Book findBookViaTitle (String title) {
+
+        for (Book book : books) {
+            if (book.getTitle().equals(title)) {
+                return book;
+            }
+        }
+
+        return null;
+    }
+
     public void mannuallyAddBook() {
         Scanner console = new Scanner(System.in);
         System.out.println("Please input the book's title : ");
         String title = console.nextLine();
+
+        System.out.println("Please input the book's author : ");
+        String author = console.nextLine();
+
+        //create try-catch for int (??)
+        System.out.println("Please input the book's year of publication : ");
+        int year = console.nextInt();
+
+        Book newBook = new Book(title, author, year);
+        addBook(newBook);
 
     }
 
