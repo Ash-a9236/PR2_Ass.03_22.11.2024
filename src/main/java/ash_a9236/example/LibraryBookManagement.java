@@ -25,7 +25,7 @@ public class LibraryBookManagement {
         return null;
     }
 
-    public void mannuallyAddBook() {
+    public void manuallyAddBook() {
         Scanner console = new Scanner(System.in);
         System.out.println("Please input the book's title : ");
         String title = console.nextLine();
@@ -39,6 +39,15 @@ public class LibraryBookManagement {
 
         Book newBook = new Book(title, author, year);
         addBook(newBook);
+
+    }
+
+    public void removeBookViaTitle (String title) {
+        for (Book book : books) {
+            if (book.getTitle().equals(title)) {
+                books.remove(book);
+            }
+        }
 
     }
 
