@@ -1,6 +1,7 @@
 package ash_a9236.example;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LibraryBookManagement {
     private ArrayList<Book> books;
@@ -8,6 +9,18 @@ public class LibraryBookManagement {
     public LibraryBookManagement() {
         books = new ArrayList<>();
     }
+
+    public void addBook (Book book) {
+        books.addLast(book);
+    }
+
+    public void mannuallyAddBook() {
+        Scanner console = new Scanner(System.in);
+        System.out.println("Please input the book's title : ");
+        String title = console.nextLine();
+
+    }
+
 
 
 
