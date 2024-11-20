@@ -53,6 +53,7 @@ public class LibraryBookManagement {
 
         for (Book book : books) {
             if (book.getTitle().equalsIgnoreCase(title)) {
+                System.out.println(book);
                 return book;
             }
         }
@@ -123,10 +124,9 @@ public class LibraryBookManagement {
     public void loadFromFile() {
 
         try {
-
             BufferedReader reader = new BufferedReader(new FileReader("Books.csv"));
             String line = "";
-            String[] strs = line.split(", ");
+            String[] strs = line.split(",");
 
             for (String str : strs) {
                 System.out.println(str);
