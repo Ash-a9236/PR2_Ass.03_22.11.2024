@@ -13,6 +13,7 @@ public class LibraryBookManagement {
         this.books = new ArrayList<>();
     }
 
+
     public void addBook (Book book) {
         books.addLast(book);
     }
@@ -20,11 +21,28 @@ public class LibraryBookManagement {
     public Book findBookViaTitle (String title) {
 
         for (Book book : books) {
-            if (book.getTitle().equals(title)) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
                 return book;
             }
         }
+        return null;
+    }
 
+    public Book searchByYearRange (int startDate, int endDate) {
+        for (Book book : books) {
+            if (book.getYear() >= startDate && book.getYear() <= endDate) {
+                return book;
+            }
+        }
+        return null;
+    }
+
+    public Book searchAuthor (String author) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(author)) {
+                return book;
+            }
+        }
         return null;
     }
 
@@ -48,6 +66,7 @@ public class LibraryBookManagement {
     public void removeBookViaTitle (String title) {
         for (Book book : books) {
             if (book.getTitle().equals(title)) {
+                System.out.println(book.getTitle() + " by " + book.getAuthor() + " removed");
                 books.remove(book);
             }
         }

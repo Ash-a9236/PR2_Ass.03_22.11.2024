@@ -1,6 +1,6 @@
 package ash_a9236.example;
 
-public class Book {
+public class Book implements Comparable<Book> {
     private String title;
     private String author;
     private int year;
@@ -11,6 +11,10 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
+    }
+
+    public int compareTo (Book book) {
+        return this.title.compareTo(book.getTitle());
     }
 
 

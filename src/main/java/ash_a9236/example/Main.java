@@ -14,10 +14,11 @@ public class Main {
 
         System.out.println("_________________________________________________________________");
         System.out.println("         Welcome to the Library Management System!\n");
-        System.out.println("    1. Add Book                      5. Search Author");
-        System.out.println("    2. Remove Book                   6. Search Year Range");
-        System.out.println("    3. Sort Books by Title           7. Save to File");
-        System.out.println("    4. Sort Books by Year            8. Exit");
+        System.out.println("    1. Add Book                      5. Sort Books by Year");
+        System.out.println("    2. Remove Book                   6. Search Author");
+        System.out.println("    3. Book info                     7. Search Year Range");
+        System.out.println("    4. Sort Books by Title           8. Save changes to File");
+        System.out.println("                       9. Exit");
         System.out.println("_________________________________________________________________\n");
 
         userAns = console.next();
@@ -28,63 +29,72 @@ public class Main {
                 break;
 
             case "2":
-                System.out.println("REMOVE STUDENT");
-                System.out.print("Enter Student ID : ");
-                int ID01 = console.nextInt();
-                String IDExtraLine01 = console.nextLine();
+                System.out.println("REMOVE BOOK");
 
-                sm.searchStudentByID(ID01);
+                System.out.print("Enter the Book's Title : ");
+                String title = console.nextLine();
+                lbm.removeBookViaTitle(title);
+
+                lbm.saveToFile(books, false); //will re-write the file completely since a book was removed
                 break;
 
             case "3":
-                System.out.println("DISPLAYING STUDENTS");
+                System.out.println("SORT BOOKS VIA TITLE");
 
-                sm.displayStudents();
                 break;
 
             case "4":
-                System.out.println("DELETING STUDENT");
-                System.out.print("Enter Student ID : ");
-                int ID02 = console.nextInt();
-                String IDExtraLine02 = console.nextLine();
+                System.out.println("BOOK INFO");
 
-                sm.removeStudent(ID02);
+                System.out.println("Please enter the book's title : ");
+                String bookTitle = console.nextLine();
+
+                lbm.findBookViaTitle(bookTitle);
                 break;
 
             case "5":
-                System.out.println("SAVING TO FILE");
-                System.out.print("Enter File Name : ");
+                System.out.println("SORT BOOKS VIA YEAR");
 
-                String fileName = console.nextLine();
-                fileName.substring(0, fileName.indexOf("."));
-
-                sm.saveToFileMain(fileName);
                 break;
 
             case "6":
-                System.out.println("LOAD FROM FILE");
-                System.out.print("Enter File Name : ");
+                System.out.println("SEARCH AUTHOR");
 
-                String fileName01 = console.nextLine();
-                fileName01.substring(0, fileName01.indexOf("."));
+                System.out.print("Enter the Author : ");
+                String author01 = console.nextLine();
 
-                sm.loadFromFile(fileName01);
+                if (lbm.searchAuthor(author01) == null) {
+                    System.out.println("No book found for this author...");
+                }
 
                 break;
 
             case "7":
-                System.out.println("SORT STUDENTS BY ID");
+                System.out.println("SEARCH YEAR RANGE");
 
-                sm.sortStudentByID();
+                System.out.println("Please input the start year : ");
+                int lowYear = console.nextInt();
+                String junkline01 = console.nextLine();
+
+                System.out.println("Please input the end year : ");
+                int highYear = console.nextInt();
+                String junkline02 = console.nextLine();
+
+                if (lbm.searchByYearRange(lowYear, highYear) == null) {
+                    System.out.println("No book found for this year range...");
+                }
+
                 break;
 
             case "8":
-                System.out.println("SORT STUDENTS BY GPA");
-
-                sm.sortStudentByGPA();
+                System.out.println("SAVE CHANGES TO FILE");
+                lbm.saveToFile(books, true);
                 break;
 
             case "9":
+                System.out.println("SAVING...");
+                lbm.saveToFile(books, true);
+
                 System.out.println("Exiting program. Thank you!");
                 break;
 
