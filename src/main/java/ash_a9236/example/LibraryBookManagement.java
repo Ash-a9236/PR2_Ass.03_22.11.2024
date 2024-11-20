@@ -1,13 +1,16 @@
 package ash_a9236.example;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LibraryBookManagement {
     private ArrayList<Book> books;
 
-    public LibraryBookManagement() {
-        books = new ArrayList<>();
+    public LibraryBookManagement(ArrayList<Book> books) {
+        this.books = new ArrayList<>();
     }
 
     public void addBook (Book book) {
@@ -48,8 +51,48 @@ public class LibraryBookManagement {
                 books.remove(book);
             }
         }
-
     }
+
+    public void saveToFile(ArrayList<Book> books, boolean append) {
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter( "Books.csv", append));
+
+            //Header
+            writer.write("TITLE, AUTHOR, YEAR");
+            writer.newLine();
+
+            for (Book book : books) {
+                String toCVS = book.getTitle() + ", " + book.getAuthor() + ", " + book.getYear();
+                writer.write(toCVS);
+                writer.newLine();
+            }
+
+            System.out.println("Data Written To File");
+
+        } catch (IOException e) {
+            System.out.println("Cannot perform task");
+            e.printStackTrace();
+        }
+    }
+
+
+//    // sorting by Year with insertion sort
+//    public ArrayList<Book> sortBookByYear () {
+//        int size = books.size();
+//
+//        for (int i = 0; i > size; i++) { //loop through the ArrayList<>
+//            Book key = books.get(size);
+//            int j = i - 1;
+//
+//            while (j >= 0 && books.get(j).getYear() > key.getYear()) {
+//                books.set(j + 1, books.get(j)); // Shifts students to the right
+//                j--; // move to the left
+//                books.set(j + 1, key); //insert the current student in the correct position
+//            }
+//        }
+//        return books;
+//    }
 
 
 
