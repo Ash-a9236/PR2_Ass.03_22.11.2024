@@ -1,6 +1,6 @@
 package ash_a9236.example;
 
-public class Book implements Comparable<Book> {
+public class Book {
     private String title;
     private String author;
     private int year;
@@ -13,10 +13,11 @@ public class Book implements Comparable<Book> {
         this.year = year;
     }
 
-    public int compareTo (Book book) {
-        return this.title.compareTo(book.getTitle());
-    }
 
+    @Override
+    public String toString() {
+        return title + " by " + author + ", " + year;
+    }
 
 /*----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------*/

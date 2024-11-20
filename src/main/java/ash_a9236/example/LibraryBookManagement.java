@@ -1,9 +1,8 @@
 package ash_a9236.example;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class LibraryBookManagement {
@@ -13,10 +12,42 @@ public class LibraryBookManagement {
         this.books = new ArrayList<>();
     }
 
-
+/*----------------------------------------------------------------------------------------------------------------------
+    BASIC METHODS
+----------------------------------------------------------------------------------------------------------------------*/
     public void addBook (Book book) {
         books.addLast(book);
     }
+
+    public void manuallyAddBook() {
+        Scanner console = new Scanner(System.in);
+        System.out.println("Please input the book's title : ");
+        String title = console.nextLine();
+
+        System.out.println("Please input the book's author : ");
+        String author = console.nextLine();
+
+        //create try-catch for int (??)
+        System.out.println("Please input the book's year of publication : ");
+        int year = console.nextInt();
+
+        Book newBook = new Book(title, author, year);
+        addBook(newBook);
+
+    }
+
+    public void removeBookViaTitle (String title) {
+        for (Book book : books) {
+            if (book.getTitle().equals(title)) {
+                System.out.println(book.getTitle() + " by " + book.getAuthor() + " removed");
+                books.remove(book);
+            }
+        }
+    }
+
+/*----------------------------------------------------------------------------------------------------------------------
+    SEARCHING METHODS
+----------------------------------------------------------------------------------------------------------------------*/
 
     public Book findBookViaTitle (String title) {
 
@@ -46,31 +77,25 @@ public class LibraryBookManagement {
         return null;
     }
 
-    public void manuallyAddBook() {
-        Scanner console = new Scanner(System.in);
-        System.out.println("Please input the book's title : ");
-        String title = console.nextLine();
-
-        System.out.println("Please input the book's author : ");
-        String author = console.nextLine();
-
-        //create try-catch for int (??)
-        System.out.println("Please input the book's year of publication : ");
-        int year = console.nextInt();
-
-        Book newBook = new Book(title, author, year);
-        addBook(newBook);
-
-    }
-
-    public void removeBookViaTitle (String title) {
+/*----------------------------------------------------------------------------------------------------------------------
+    SORTING METHODS
+----------------------------------------------------------------------------------------------------------------------*/
+    public void sortBooksByYear () {
+        books.sort(Comparator.comparingInt(Book::getYear));
         for (Book book : books) {
-            if (book.getTitle().equals(title)) {
-                System.out.println(book.getTitle() + " by " + book.getAuthor() + " removed");
-                books.remove(book);
-            }
+            System.out.println(book);
         }
     }
+
+    public void sortBooksByTitle () {
+        books.sort(Comparator.comparing(Book::getTitle));
+        for (Book book : books) {
+            System.out.println(book);
+        }
+    }
+/*----------------------------------------------------------------------------------------------------------------------
+    I/O METHODS
+----------------------------------------------------------------------------------------------------------------------*/
 
     public void saveToFile(ArrayList<Book> books, boolean append) {
 
@@ -95,25 +120,28 @@ public class LibraryBookManagement {
         }
     }
 
+    public void loadFromFile() {
 
-//    // sorting by Year with insertion sort
-//    public ArrayList<Book> sortBookByYear () {
-//        int size = books.size();
-//
-//        for (int i = 0; i > size; i++) { //loop through the ArrayList<>
-//            Book key = books.get(size);
-//            int j = i - 1;
-//
-//            while (j >= 0 && books.get(j).getYear() > key.getYear()) {
-//                books.set(j + 1, books.get(j)); // Shifts students to the right
-//                j--; // move to the left
-//                books.set(j + 1, key); //insert the current student in the correct position
-//            }
-//        }
-//        return books;
-//    }
+        try {
 
+            BufferedReader reader = new BufferedReader(new FileReader("Books.csv"));
+            String line = "";
+            String[] strs = line.split(", ");
 
+            for (String str : strs) {
+                System.out.println(str);
+            }
+
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+
+        } catch (IOException e) {
+            System.out.println("file not found");
+            e.printStackTrace();
+        }
+    }
 
 
     /*
